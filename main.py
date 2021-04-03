@@ -1,8 +1,17 @@
 from arqLib.writeJSON import lerJSON, escreverJSON, adicionarMovimento, limparCarteira
 from arqLib.writeTXT import atualizarArq
+from time import localtime
+
+ano = localtime()[0]
+mes = localtime()[1]
+dia = localtime()[2]
+
+hoje = f'({dia}/{mes}/{ano})'
+
 
 carteira = lerJSON('dados.json')
 
+print("========================== CONTROLE DA CONTA ==========================\n")
 print("""[ 1 ] Adicionar movimento
 [ 2 ] Limpar carteira
 [ 3 ] Ver contas
@@ -13,7 +22,7 @@ opcao = int(input('O que deseja fazer? '))
 
 if opcao == 1:
 
-    novo_movimento = {'nome': str(input('Qual foi o movimento? ')), 'valor': float(input('Valor do movimento: '))}
+    novo_movimento = {'nome': str(input('Qual foi o movimento? ')), 'valor': float(input('Valor do movimento: ')), "data": hoje}
     carteira['saldo'] += novo_movimento['valor']
 
     if novo_movimento['valor'] > carteira['gastoMaisAlto']['valor']:
@@ -61,7 +70,7 @@ elif opcao == 3:
 
         contaPagar['pago'] = True
 
-        novo_movimento = {"nome": contaPagar["nome"], "valor": contaPagar["valor"]}
+        novo_movimento = {"nome": contaPagar["nome"], "valor": contaPagar["valor"], "data": hoje}
 
         carteira['movimentos'].append(novo_movimento)
 
@@ -70,6 +79,7 @@ elif opcao == 3:
         escreverJSON('dados.json', carteira)
 
 elif opcao == 4:
+    print("============== Movimento Financeiro ==============")
     print(f'Saldo: R${carteira["saldo"]}\n')
     print('Contas:')
     for conta in carteira['contas']:
@@ -77,4 +87,6 @@ elif opcao == 4:
     print()
     print('Movimentos: ')
     for movimento in carteira['movimentos']:
-        print(f'{movimento["nome"]}: R${movimento["valor"]}')
+        print(f'{movimento["data"]} {movimento["nome"]}: R${movimento["valor"]}')
+
+input('\nQualquer tecla para terminar: ')
