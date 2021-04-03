@@ -8,7 +8,6 @@ dia = localtime()[2]
 
 hoje = f'({dia}/{mes}/{ano})'
 
-
 carteira = lerJSON('dados.json')
 
 print("========================== CONTROLE DA CONTA ==========================\n")
@@ -24,7 +23,9 @@ opcao = int(input('O que deseja fazer? '))
 
 if opcao == 1:
 
-    novo_movimento = {'nome': str(input('Qual foi o movimento? ')), 'valor': float(input('Valor do movimento: ')), "data": hoje}
+    novo_movimento = {'nome': str(input('Qual foi o movimento? ')),
+                      'valor': float(input('Valor do movimento: ')),
+                      "data": hoje}
     carteira['saldo'] += novo_movimento['valor']
 
     if novo_movimento['valor'] > carteira['gastoMaisAlto']['valor']:
@@ -76,7 +77,7 @@ elif opcao == 3:
 
         carteira['movimentos'].append(novo_movimento)
 
-        carteira['saldo'] += novo_movimento['valor']
+        carteira['saldo'] -= novo_movimento['valor']
 
         escreverJSON('dados.json', carteira)
 
@@ -92,7 +93,7 @@ elif opcao == 4:
         print(f'{movimento["data"]} {movimento["nome"]}: R${movimento["valor"]}')
 
 elif opcao == 5:
-    novo_gasto = {"nome": str(input('Nome do gasto: ')), "valor": float(input('Valor do gasto: '))}
+    novo_gasto = {"nome": str(input('Nome do gasto: ')), "valor": float(input('Valor do gasto: ')), "data": hoje}
     carteira['gastos'].append(novo_gasto)
     carteira['saldo'] -= novo_gasto['valor']
     carteira['movimentos'].append(novo_gasto)
@@ -100,7 +101,7 @@ elif opcao == 5:
     escreverJSON('dados.json', carteira)
 
 elif opcao == 6:
-    novo_deposito = {"nome": str(input('Nome do deposito: ')), "valor": float(input('Valor do deposito: '))}
+    novo_deposito = {"nome": str(input('Nome do deposito: ')), "valor": float(input('Valor do deposito: ')), "data": hoje}
     carteira['saldo'] += novo_deposito['valor']
     carteira['depositos'].append(novo_deposito)
     carteira['movimentos'].append(novo_deposito)
