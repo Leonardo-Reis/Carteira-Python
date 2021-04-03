@@ -22,4 +22,6 @@ def limparCarteira(arquivo: str, carteira):
     carteira['movimentos'] = []
     carteira['gastoMaisAlto'] = {"nome": "", "valor": 0}
     carteira['contas'] = []
+    carteira['gastos'] = []
+    carteira['depositos'] = []
     escreverJSON(arquivo, carteira)

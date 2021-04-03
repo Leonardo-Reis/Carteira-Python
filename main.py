@@ -16,6 +16,8 @@ print("""[ 1 ] Adicionar movimento
 [ 2 ] Limpar carteira
 [ 3 ] Ver contas
 [ 4 ] Ver carteira inteira
+[ 5 ] Adicionar gasto
+[ 6 ] Adicionar deposito
 """)
 
 opcao = int(input('O que deseja fazer? '))
@@ -88,5 +90,21 @@ elif opcao == 4:
     print('Movimentos: ')
     for movimento in carteira['movimentos']:
         print(f'{movimento["data"]} {movimento["nome"]}: R${movimento["valor"]}')
+
+elif opcao == 5:
+    novo_gasto = {"nome": str(input('Nome do gasto: ')), "valor": float(input('Valor do gasto: '))}
+    carteira['gastos'].append(novo_gasto)
+    carteira['saldo'] -= novo_gasto['valor']
+    carteira['movimentos'].append(novo_gasto)
+
+    escreverJSON('dados.json', carteira)
+
+elif opcao == 6:
+    novo_deposito = {"nome": str(input('Nome do deposito: ')), "valor": float(input('Valor do deposito: '))}
+    carteira['saldo'] += novo_deposito['valor']
+    carteira['depositos'].append(novo_deposito)
+    carteira['movimentos'].append(novo_deposito)
+
+    escreverJSON('dados.json', carteira)
 
 input('\nQualquer tecla para terminar: ')
