@@ -1,5 +1,6 @@
 dados.json
-venv
-arquivo.txt
 
 arqLib/__pycache__
+
+__pycache__
+.idea

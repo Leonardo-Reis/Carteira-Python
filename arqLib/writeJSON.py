@@ -12,11 +12,6 @@ def lerJSON(arquivo: str):
         return json.load(json_file)
 
 
-def adicionarMovimento(arquivo, carteira, movimento):
-    carteira['movimentos'].append(movimento)
-    escreverJSON(arquivo, carteira)
-
-
 def limparCarteira(arquivo: str, carteira):
     carteira['saldo'] = 0
     carteira['movimentos'] = []
